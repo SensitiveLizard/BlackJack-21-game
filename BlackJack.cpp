@@ -4,10 +4,11 @@
 
 using namespace std;
 
+vector <int> coloda{ 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 11, 11, 11, 11 };
+
 class Koloda
 {
 public:
-    vector <int> coloda{ 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 11, 11, 11, 11 };
 
     void shake()
     {
@@ -21,28 +22,20 @@ public:
             coloda[temp2] = temp;
         }
     }
-    vector <int> coloda1(36);
     void print()
     {
         for (int i = 0; i < 36; i++)
         {
             cout << coloda[i] << "  ";
-            coloda1[i] = coloda[i];
-        }
-        cout << endl;
-        for (int i = 0; i < 36; i++)
-        {
-            cout << coloda1[i] << " - ";
         }
         cout << endl;
     }
 };
 
-class Player : public Koloda
+class Player
 {
 public:
     int score = 0;
-
     void start_play()
     {
         score += coloda[0];
@@ -52,7 +45,7 @@ public:
     }
 };
 
-class Ai : public Koloda
+class Ai
 {
 public:
     int score = 0;
@@ -64,7 +57,6 @@ public:
         coloda.erase(coloda.begin());
         coloda.erase(coloda.begin());
     }
-    
 };
 
 
@@ -87,12 +79,55 @@ int main()
     cout << endl;
     cout << "Счёт Ai: " << ai.score;
     cout << endl;
+
     if (player.score == ai.score)
     {
         cout << "Ничья" << endl;
     }
     else if (player.score < 21 and ai.score < 21)
     {
+        int choice;
+
+        cout << "Ещё ? 1 - да, 2 - нет" << endl;
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            player.score += coloda[0];
+            coloda.erase(coloda.begin());
+
+            if (player.score == 21)
+            {
+                "Игрок получил 21";
+            }
+            else if (player.score < 21)
+            {
+                cout << "Ваш счёт: " << player.score << endl;
+
+                cout << "Ещё ? 1 - да, 2 - нет" << endl;
+                cin >> choice;
+
+                if (choice == 1)
+                {
+                    player.score += coloda[0];
+                    coloda.erase(coloda.begin());
+
+                    if (player.score == 21)
+                    {
+                        cout << "Игрок получил 21";
+                    }
+                    else if (player.score > 21)
+                    {
+                        cout << "Ваш счёт: " << player.score << endl;
+                        cout << "Игрок проиграл";
+                    }
+                }
+            }
+        }
+        else if (choice == 2)
+        {
+
+        }
 
     }
     else if (player.score == 21)
